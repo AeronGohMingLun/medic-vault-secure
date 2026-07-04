@@ -1,0 +1,19 @@
+{
+    "name": "medic-vault/secure",
+    "description": "Secure PHP medical vault — defensive-programming coursework",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "files": [
+            "src/db_config.php",
+            "src/crypto_vault.php",
+            "src/auth.php"
+        ]
+    }
+}
