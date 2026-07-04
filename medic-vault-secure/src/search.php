@@ -14,10 +14,9 @@ try {
 
     // Fix: parameterized LIKE query — user input is never concatenated into SQL.
     $stmt = $pdo->prepare(
-        'SELECT id, patient_name, diagnosis, attending_physician
+        'SELECT id, name, illness_history
            FROM patient_records
-          WHERE patient_name LIKE :kw
-             OR diagnosis    LIKE :kw'
+          WHERE name LIKE :kw'
     );
     $stmt->bindValue(':kw', '%' . $keyword . '%', PDO::PARAM_STR);
     $stmt->execute();
@@ -48,19 +47,17 @@ try {
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Patient Name</th>
-                <th>Diagnosis</th>
-                <th>Attending Physician</th>
+                <th>Name</th>
+                <th>Illness History</th>
             </tr>
         </thead>
         <tbody>
         <?php foreach ($rows as $row): ?>
             <tr>
                 <!-- Fix: every DB field escaped — stored XSS cannot execute -->
-                <td><?= htmlspecialchars((string) $row['id'],                 ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars((string) $row['patient_name'],        ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars((string) $row['diagnosis'],           ENT_QUOTES, 'UTF-8') ?></td>
-                <td><?= htmlspecialchars((string) $row['attending_physician'], ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars((string) $row['id'],              ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars((string) $row['name'],            ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars((string) $row['illness_history'], ENT_QUOTES, 'UTF-8') ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
